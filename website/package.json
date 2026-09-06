@@ -1,0 +1,6 @@
+{
+  "name": "quicktools-download",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "node build.mjs", "dev": "node serve.mjs", "prepare-download": "node prepare-download.mjs" }
+}

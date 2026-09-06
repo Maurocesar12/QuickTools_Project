@@ -1,0 +1,57 @@
+{
+  "name": "ITQuickTools.exe",
+  "bytes": 161709642,
+  "sha256": "53e71740bb89f7fedd9360164570d7f9a51140ee5ef6252113a07f36b1cdcd5a",
+  "parts": [
+    {
+      "file": "quicktools-00.bin",
+      "bytes": 16777216,
+      "sha256": "dea78ca5f9fc564415530a5dfab683e04a5c59acaf11012b78b969936a31e131"
+    },
+    {
+      "file": "quicktools-01.bin",
+      "bytes": 16777216,
+      "sha256": "9ef0dfddff3a556505b8cf0fb4d2b868ed29ca14e6285d4b0a8e5e26dd79e358"
+    },
+    {
+      "file": "quicktools-02.bin",
+      "bytes": 16777216,
+      "sha256": "b7e71f20b1ee2c9b8989b4000bb88e368950c4e512efbb9222acf996b33e0126"
+    },
+    {
+      "file": "quicktools-03.bin",
+      "bytes": 16777216,
+      "sha256": "24de57938101748707a33f6e8c7976eee6e4c3cc893eb40ca05952427dfde6c0"
+    },
+    {
+      "file": "quicktools-04.bin",
+      "bytes": 16777216,
+      "sha256": "5b03c064ed8834f7411e8f18c638cdace1305a3af0ed8f396a29d7f70e6ddae3"
+    },
+    {
+      "file": "quicktools-05.bin",
+      "bytes": 16777216,
+      "sha256": "8dbe60a38de45f257cfd34edf27fcf4303dca276fc7073c6be2ba838aed6d24d"
+    },
+    {
+      "file": "quicktools-06.bin",
+      "bytes": 16777216,
+      "sha256": "9672eee568d35206695a7083286f4976eb051ddea78837278e7d4d51dec9855d"
+    },
+    {
+      "file": "quicktools-07.bin",
+      "bytes": 16777216,
+      "sha256": "d823f9c22a33c3cc384a32c3f4fc72a0abb9428113b1c41a89b8a885d052819d"
+    },
+    {
+      "file": "quicktools-08.bin",
+      "bytes": 16777216,
+      "sha256": "6c03f19f0297684fdba6c6a0afafe812a1780da5ce7e04e2c54d360f3421ffdc"
+    },
+    {
+      "file": "quicktools-09.bin",
+      "bytes": 10714698,
+      "sha256": "893eab11ac9c1ef91e2a77e498d1419b32edf355cbc6c5bd720f4a60d4a4a679"
+    }
+  ]
+}
