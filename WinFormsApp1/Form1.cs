@@ -30,6 +30,14 @@ public partial class Form1 : Form
     public Form1()
     {
         InitializeComponent();
+        using (var iconStream = typeof(Form1).Assembly.GetManifestResourceStream("QuickTools.Icon"))
+        {
+            if (iconStream != null)
+            {
+                using var appIcon = new Icon(iconStream, new Size(32, 32));
+                Icon = (Icon)appIcon.Clone();
+            }
+        }
         Text = "QuickTools • Central de suporte";
         Font = new Font("Segoe UI", 10);
         BackColor = canvas; ForeColor = Color.FromArgb(231, 238, 248);
