@@ -1,65 +1,59 @@
-# 🛠️ IT QuickTools - Ultimate Edition
+# IT QuickTools
 
-**IT QuickTools** é um "canivete suíço" desenvolvido em C# para técnicos de informática, analistas de suporte e administradores de sistema. O objetivo é centralizar as tarefas mais comuns de manutenção e diagnóstico em uma única interface portátil e ágil.
+Central de suporte para Windows, em C# e Windows Forms (.NET 8). Interface em português com tema escuro, menu lateral, cartões de visão geral e busca de ferramentas (`Ctrl+K`).
 
-## 🚀 Funcionalidades Principais
+## Recursos
 
-### 🌐 Rede (Network)
-* **Ping Contínuo**: Monitore a estabilidade da conexão em tempo real.
-* **Reset de Rede**: Executa `flushdns`, `release` e `renew` de forma automatizada.
-* **Recuperador de Wi-Fi**: Lista todos os perfis de redes sem fio salvas e suas respectivas senhas.
+| Área | Funcionalidades |
+| --- | --- |
+| Visão geral | Tempo ligado, espaço disponível no disco do Windows e tarefas pendentes. Atualização a cada 30 segundos. |
+| Rede | Ping contínuo com resumo, consulta DNS, teste TCP com limite de 5 segundos, adaptadores/IP/gateway/DNS, limpeza de DNS, reset de rede e exportação de log. |
+| Sistema | Inventário WMI de hardware, Windows, discos e rede; exportação em TXT. |
+| Limpeza | Análise de temporários com mais de 24 horas; exclusão somente dos itens analisados que continuam elegíveis; contagem de arquivos e bytes efetivamente removidos. |
+| Manutenção | SFC, DISM e reinício do serviço de impressão, com saída na interface e verificação do código de saída. O reinício preserva a fila de impressão. |
+| Ferramentas | Atalhos para aplicativos, dispositivos, tarefas, serviços, eventos, acesso remoto, Windows Update, captura e calculadora; relatório de bateria, chave OEM via WMI e SHA-256 de arquivos. |
+| Meu espaço | Checklist e notas com salvamento automático e backup da versão anterior. |
 
-### 💻 Sistema & Hardware
-* **Informações WMI**: Detalhes sobre CPU, RAM, GPU, Discos e Serial Number.
-* **Detector de Uptime**: Saiba exatamente há quanto tempo a máquina está ligada (ideal para identificar problemas de "Início Rápido" do Windows).
+## Executar
 
-### 🧹 Limpeza (Maintenance)
-* **Análise de Disco**: Identifica arquivos temporários e lixo do sistema.
-* **Limpeza Segura**: Remove arquivos desnecessários para liberar espaço em disco.
+A versão portátil gerada localmente está em `artifacts/QuickTools-v2/ITQuickTools.exe`. Execute esse arquivo; ele inclui o .NET e não exige instalação do runtime. A publicação é para Windows x64.
 
-### 🔧 Ferramentas de Manutenção (Admin)
-* **SFC & DISM**: Reparo automático de arquivos corrompidos do Windows em janelas externas.
-* **Reset de Spooler**: Para o serviço, limpa a fila de impressão travada e reinicia o serviço.
-* **Reiniciar Explorer**: Resolve travamentos na barra de tarefas e interface visual.
+O programa inicia em modo padrão. Reparos e alterações de rede que precisam de administrador oferecem reabertura com elevação. Depois de reabrir, selecione novamente a operação desejada. Operações que interrompem a rede, reparam o Windows ou apagam temporários exigem confirmação na própria interface.
 
-### ⚡ Extras & Atalhos
-* **Chave do Windows**: Recupera a licença OEM gravada na BIOS/Placa-mãe.
-* **Relatório de Bateria**: Gera um log detalhado da saúde da bateria de notebooks.
-* **Status de Licença**: Verifica se a ativação do Windows é permanente ou temporária.
+Notas e tarefas ficam em `%LOCALAPPDATA%/ITQuickTools/workspace.json`; o backup anterior fica em `workspace.json.bak`. Esses dados são locais ao usuário e não acompanham automaticamente o executável em um pen drive. Relatórios são salvos no local escolhido pelo usuário. Não há sincronização entre computadores.
 
----
+## Desenvolvimento
 
-## 📥 Como "Instalar" e Usar
+Pré-requisitos: Windows e SDK .NET 8, com acesso ao NuGet na primeira restauração.
 
-O **IT QuickTools** é uma ferramenta **portátil (Portable)**, o que significa que não requer instalação no sistema. Você pode executá-lo diretamente de um Pen Drive em qualquer máquina.
+```powershell
+dotnet build WinFormsApp1/WinFormsApp1.csproj -c Release
+dotnet run --project WinFormsApp1/WinFormsApp1.csproj
+```
 
-1.  Acesse a aba [**Releases**]([seu-link-aqui](https://github.com/Maurocesar12/QuickTools_Project)) deste repositório.
-2.  Baixe o arquivo mais recente (ex: `IT_QuickTools_v1.0.zip`).
-3.  Extraia o conteúdo do arquivo `.zip` para uma pasta de sua preferência.
-4.  Clique com o botão direito no arquivo `IT_QuickTools.exe` e selecione **"Executar como Administrador"**.
+Para gerar o executável portátil:
 
-> [!IMPORTANT]
-> **Aviso de Segurança (Windows SmartScreen):**
-> Por ser um software novo e sem assinatura digital paga, o Windows pode exibir um aviso de "O Windows protegeu o seu computador". 
-> Para rodar, clique em **"Mais informações"** e depois em **"Executar assim mesmo"**.
+```powershell
+dotnet publish WinFormsApp1/WinFormsApp1.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o artifacts/QuickTools-v2
+```
 
----
+Para executar as verificações de regressão, sem pacotes de teste adicionais:
 
-## 🛠️ Tecnologias Utilizadas
+```powershell
+dotnet run --project tests/QuickTools.Checks.csproj -c Release
+```
 
-* **Linguagem**: C#
-* **Framework**: .NET 8.0 (Windows Forms)
-* **Arquitetura**: Autocontido (Single File Executable)
+Os testes criam seus próprios arquivos e verificam contagem/deduplicação da limpeza, preservação de arquivos recentes/alterados/fora do escopo, persistência Unicode, backup, detecção de JSON corrompido e captura simultânea de stdout/stderr com código de saída diferente de zero. Não executam reparos, reset de rede nem limpeza de temporários reais do usuário.
 
----
+## Conferência manual
 
-## 📝 Licença
+- Redimensionar a janela e conferir as sete páginas em escalas de 100%, 125% e 150%.
+- Buscar `servicos`, `hardware` e um termo inexistente; limpar o campo e conferir o retorno das ferramentas.
+- Iniciar, parar e reiniciar o ping; testar host inválido e porta indisponível.
+- Criar uma tarefa, marcá-la, escrever uma nota e reabrir para conferir persistência.
+- Gerar inventário e exportar TXT; verificar arquivo com SHA-256 conhecido.
+- Validar reparos, elevação e limpeza em máquina de teste antes de uso operacional.
 
-Este projeto está sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
+A disponibilidade de bateria, chave OEM, WMI e atalhos depende do equipamento e da edição do Windows. Falhas de acesso são informadas; resultados de WMI indisponíveis aparecem como `N/A`. A limpeza ignora pastas sem acesso, links e arquivos bloqueados; não esvazia a lixeira nem apaga pastas recursivamente.
 
-## ⚠️ Isenção de Responsabilidade
-
-Esta ferramenta executa comandos de nível de administrador. Use-a com responsabilidade. O desenvolvedor não se responsabiliza por mau uso ou perda de dados decorrentes das funções de limpeza e manutenção.
-
----
-Desenvolvido por [Maurocesar12](https://github.com/Maurocesar12)
+Desenvolvido por [Maurocesar12](https://github.com/Maurocesar12).

@@ -10,7 +10,7 @@ namespace WinFormsApp1
         public class PCInfo
         {
              // <--- NOVO
-            public string OSName, CPU, RAM, GPU, SerialNumber, Model, DiskInfo, Hostname;
+            public string OSName = "N/A", CPU = "N/A", RAM = "N/A", GPU = "N/A", SerialNumber = "N/A", Model = "N/A", DiskInfo = "N/A", Hostname = "N/A";
         }
 
         public static Task<PCInfo> GetInfoAsync()
@@ -44,8 +44,10 @@ namespace WinFormsApp1
         {
             try
             {
-                using (var s = new ManagementObjectSearcher($"SELECT {prop} FROM {table}"))
-                    foreach (ManagementObject o in s.Get()) return o[prop]?.ToString();
+                using var s = new ManagementObjectSearcher($"SELECT {prop} FROM {table}");
+                using var results = s.Get();
+                foreach (ManagementObject o in results)
+                    using (o) return o[prop]?.ToString() ?? "N/A";
             }
             catch { }
             return "N/A";

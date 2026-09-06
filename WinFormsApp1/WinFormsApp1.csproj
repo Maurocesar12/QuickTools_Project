@@ -7,6 +7,8 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>ITQuickTools</AssemblyName>
+    <Product>IT QuickTools</Product>
   </PropertyGroup>
 
   <ItemGroup>
